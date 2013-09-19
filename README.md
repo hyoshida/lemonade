@@ -18,5 +18,4 @@ bundle exec rake build
 ```
 
 3. Run  
-Plese open `public/index.html` in your browser.  
-And check the console.
+Plese open `public/index.html` in your browser.

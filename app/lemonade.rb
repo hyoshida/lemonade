@@ -1,4 +1,6 @@
 require 'opal'
+require 'opal-jquery'
+
 
 def entity(class_sym)
   raise unless block_given?
@@ -19,7 +21,17 @@ def entity(class_sym)
       end
 
       def talk(text)
-        puts "[#{self.name}] #{text}"
+        add_talk_element "[#{self.name}] #{text}"
+      end
+
+      private
+
+      def add_talk_element(text)
+        Document.ready? do
+          paragraph = Element.new('p')
+          paragraph.text = text
+          paragraph.append_to_body
+        end
       end
     end
   }

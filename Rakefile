@@ -1,5 +1,5 @@
-require 'opal'
-require 'opal-sprockets'
+require 'bundler'
+Bundler.require
 
 desc 'Build our app to build.js'
 task :build do
