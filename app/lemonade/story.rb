@@ -23,8 +23,7 @@ module Lemonade
 
     def self.entity(class_sym)
       raise unless block_given?
-
-      klass = spawn_model(class_sym)
+      klass = spawn_entity(class_sym)
       klass.attributes = yield
       klass
     end
@@ -43,7 +42,7 @@ module Lemonade
 
     private
 
-    def self.spawn_model(class_sym, &block)
+    def self.spawn_entity(class_sym, &block)
       Object.instance_eval { remove_const class_sym } if Object.const_defined?(class_sym)
       Object.const_set(class_sym, Class.new).send(:extend, Entity)
       Object.const_get(class_sym).class_eval(&block) if block_given?
