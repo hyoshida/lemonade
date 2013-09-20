@@ -1,53 +1,26 @@
 require 'opal'
 require 'opal-jquery'
 require 'json'
+
 require 'javascript_importer'
+require 'entity'
 
 JavascriptImporter.new(%w{
   https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.js
   https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js
 }).exec
 
+def spawn_model(class_sym, &block)
+  Object.instance_eval { remove_const class_sym } if Object.const_defined?(class_sym)
+  Object.const_set(class_sym, Class.new).send(:extend, Entity)
+  Object.const_get(class_sym).class_eval(&block) if block_given?
+  Object.const_get(class_sym)
+end
+
 def entity(class_sym)
   raise unless block_given?
 
-  self.class.const_set class_sym, Class.new {
-    class << self
-      attr_accessor :name
-
-      def attributes
-        { name: self.name }
-      end
-
-      def attributes=(attributes)
-        raise unless attributes.is_a? Hash
-        attributes.each_pair do |key,value|
-          self.send "#{key}=", value
-        end
-      end
-
-      def talk(text)
-        add_talk_element "[#{self.name}] #{text}"
-      end
-
-      private
-
-      def add_talk_element(text)
-        Document.ready? do
-          paragraph = Element.new('p')
-          paragraph.text = text
-          paragraph.append_to_body
-          animation_for(paragraph)
-        end
-      end
-
-      def animation_for(element, options = { randomOrder: false, time: 500, reset: true })
-        `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n});`
-      end
-    end
-  }
-
-  klass = self.class.const_get(class_sym)
+  klass = spawn_model(class_sym)
   klass.attributes = yield
   klass
 end
