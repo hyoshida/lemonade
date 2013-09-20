@@ -25,6 +25,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   opal
   opal-jquery
   opal-sprockets

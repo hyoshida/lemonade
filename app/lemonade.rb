@@ -1,6 +1,21 @@
 require 'opal'
 require 'opal-jquery'
+require 'json'
 
+def javascripts
+  [
+    'https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.js',
+    'https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js'
+  ]
+end
+
+def import_javascripts
+  javascripts.each do |javascript|
+    `document.write('<script type="text/javascript" src="' + javascript + '"><\/script>');`
+  end
+end
+
+import_javascripts
 
 def entity(class_sym)
   raise unless block_given?
@@ -31,7 +46,12 @@ def entity(class_sym)
           paragraph = Element.new('p')
           paragraph.text = text
           paragraph.append_to_body
+          animation_for(paragraph)
         end
+      end
+
+      def animation_for(element, options = { randomOrder: false, time: 500, reset: true })
+        `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n});`
       end
     end
   }
