@@ -1,5 +1,3 @@
-require 'lemonade'
-
 entity :Lemon do
   { name: 'レモン' }
 end
