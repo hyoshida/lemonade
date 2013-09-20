@@ -1,21 +1,12 @@
 require 'opal'
 require 'opal-jquery'
 require 'json'
+require 'javascript_importer'
 
-def javascripts
-  [
-    'https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.js',
-    'https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js'
-  ]
-end
-
-def import_javascripts
-  javascripts.each do |javascript|
-    `document.write('<script type="text/javascript" src="' + javascript + '"><\/script>');`
-  end
-end
-
-import_javascripts
+JavascriptImporter.new(%w{
+  https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.js
+  https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js
+}).exec
 
 def entity(class_sym)
   raise unless block_given?
