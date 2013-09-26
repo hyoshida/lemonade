@@ -40,6 +40,16 @@ module Lemonade
       self.instance_eval { yield }
     end
 
+    def self.event(&block)
+      @event_queue ||= []
+      @event_queue.push(block)
+    end
+
+    def self.step
+      event = @event_queue.shift
+      event.call if event
+    end
+
     private
 
     def self.spawn_entity(class_sym, &block)
