@@ -1,5 +1,7 @@
 module Lemonade
   module Entity
+    ID_TAILK = :talk
+
     def initialize(attributes)
       self.attributes = attributes
     end
@@ -36,9 +38,13 @@ module Lemonade
 
     def add_talk_element(text)
       Document.ready? do
-        paragraph = Element.new('p')
+        paragraph = Element.id(ID_TAILK)
+        if paragraph.nil?
+          paragraph = Element.new('p')
+          paragraph.id = ID_TAILK
+          paragraph.append_to_body
+        end
         paragraph.text = text
-        paragraph.append_to_body
         animation_for(paragraph)
       end
     end
