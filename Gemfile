@@ -7,3 +7,6 @@ gem 'opal-sprockets'
 gem 'opal-jquery'
 
 gem 'json'
+
+gem 'sass'
+gem 'compass'

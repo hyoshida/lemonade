@@ -2,3 +2,5 @@ vendor/bundle
 .bundle
 .ruby-version
 public/build.js
+.sass-cache
+public/stylesheets

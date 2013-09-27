@@ -1,6 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chunky_png (1.2.8)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    fssm (0.2.10)
     hike (1.2.3)
     json (1.8.0)
     multi_json (1.8.0)
@@ -12,6 +18,7 @@ GEM
       opal (~> 0.4.4)
       sprockets
     rack (1.5.2)
+    sass (3.2.10)
     source_map (3.0.1)
       json
     sprockets (2.10.0)
@@ -25,7 +32,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  compass
   json
   opal
   opal-jquery
   opal-sprockets
+  sass
