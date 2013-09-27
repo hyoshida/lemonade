@@ -40,14 +40,12 @@ module Lemonade
       self.instance_eval { yield }
     end
 
-    def self.event(&block)
-      @event_queue ||= []
-      @event_queue.push(block)
+    def self.event(*args, &block)
+      Event.new(*args, &block).save
     end
 
     def self.step
-      event = @event_queue.shift
-      event.call if event
+      Event.exec
     end
 
     private

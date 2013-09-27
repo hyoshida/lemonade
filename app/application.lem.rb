@@ -1,8 +1,4 @@
 novel 'Lemonade' do
-  Document.on(:click) do
-    step
-  end
-
   # TODO: change to this
   # entity (:lemon) { Lemon.new(name: 'レモン') }
   entity :Lemon do

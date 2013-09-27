@@ -10,5 +10,10 @@ JavascriptImporter.new(%w{
 }).exec
 
 require 'lemonade/entity'
+require 'lemonade/event'
 require 'lemonade/story'
 require 'lemonade/dsl'
+
+Document.on(:click) do
+  Lemonade::Event.exec
+end
