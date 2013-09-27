@@ -1,5 +1,9 @@
 module Lemonade
   module Entity
+    def initialize(attributes)
+      self.attributes = attributes
+    end
+
     # なぜかattr_accessorがうまく動作しないので独自に定義
     def name
       @name

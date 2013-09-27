@@ -14,6 +14,10 @@ require 'lemonade/event'
 require 'lemonade/story'
 require 'lemonade/dsl'
 
+class Anima
+  include Lemonade::Entity
+end
+
 Document.on(:click) do
   Lemonade::Event.exec
 end

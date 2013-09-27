@@ -21,11 +21,11 @@ module Lemonade
       subclass
     end
 
-    def self.entity(class_sym)
-      raise unless block_given?
-      klass = spawn_entity(class_sym)
-      klass.attributes = yield
-      klass
+    def self.entity(name, &block)
+      define_singleton_method(name) do
+        @assignments ||= {}
+        @assignments[name] ||= instance_eval(&block)
+      end
     end
 
     def self.scene(scene_name)
@@ -37,7 +37,7 @@ module Lemonade
     end
 
     def self.chapter(chapter_name)
-      self.instance_eval { yield }
+      instance_eval { yield }
     end
 
     def self.event(*args, &block)
@@ -49,13 +49,6 @@ module Lemonade
     end
 
     private
-
-    def self.spawn_entity(class_sym, &block)
-      Object.instance_eval { remove_const class_sym } if Object.const_defined?(class_sym)
-      Object.const_set(class_sym, Class.new).send(:extend, Entity)
-      Object.const_get(class_sym).class_eval(&block) if block_given?
-      Object.const_get(class_sym)
-    end
 
     def self.scene_def(scene_name, block)
       @scene_map ||= {}
