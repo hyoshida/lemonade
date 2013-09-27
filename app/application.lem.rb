@@ -24,12 +24,12 @@ novel 'Lemonade' do
     # TODO: change to this
     # lemon.talk('ひとりひとりが')
     # age.talk('順番に喋ることもできます')
-    event { Lemon.talk('ひとりひとりが') }
-    event { Ade.talk('順番に喋ることもできます') }
+    Lemon.talk('ひとりひとりが')
+    Ade.talk('順番に喋ることもできます')
 
     event do
       Lemon.name = '？？？'
-      Lemon.talk('名前を変えるのだって簡単！')
+      Lemon.add_talk('名前を変えるのだって簡単！')
     end
   end
 

@@ -20,8 +20,12 @@ module Lemonade
       end
     end
 
-    def talk(text)
+    def add_talk(text)
       add_talk_element "[#{self.name}] #{text}"
+    end
+
+    def talk(text)
+      Event.new { add_talk text }.save
     end
 
     private
