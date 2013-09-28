@@ -19,3 +19,9 @@ bundle exec rake build
 
 3. Run  
 Plese open `public/index.html` in your browser.
+
+
+Screenshot
+----------
+
+![sample novel](doc/screenshot.png)
