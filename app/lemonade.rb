@@ -18,6 +18,24 @@ class Anima
   include Lemonade::Entity
 end
 
+class Element
+  def show?
+    not hidden?
+  end
+
+  def hidden?
+    self.css(:display) == 'none'
+  end
+end
+
 Document.on(:click) do
-  Lemonade::Event.exec
+  paragraph = Element.id(Lemonade::Entity::ID_TAILK)
+  return Lemonade::Event.exec if paragraph.nil? || paragraph.show?
+  paragraph.toggle
+end
+
+Document.on(:contextmenu) do
+  paragraph = Element.id(Lemonade::Entity::ID_TAILK)
+  paragraph.toggle if paragraph
+  return false
 end
