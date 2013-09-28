@@ -29,14 +29,31 @@ class Element
   end
 end
 
-Document.on(:click) do
+def on_left_click
   message_box = Lemonade::MessageBox.find
   return Lemonade::Event.exec if message_box.nil? || message_box.show?
   message_box.toggle
 end
 
-Document.on(:contextmenu) do
+def on_right_click
   message_box = Lemonade::MessageBox.find
   message_box.toggle if message_box
-  return false
+end
+
+def on_wheel_click
+  message_box = Lemonade::MessageBox.find
+  message_box.toggle if message_box
+end
+
+Document.on(:mousedown) do |event|
+  case event.which
+  when 1 then on_left_click
+  when 3 then on_right_click
+  when 2 then on_wheel_click
+  end
+  `#{event}.preventDefault();`
+end
+
+Document.on(:contextmenu) do |event|
+  `#{event}.preventDefault();`
 end
