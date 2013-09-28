@@ -36,11 +36,31 @@ module Lemonade
       def show_or_add_element
         Document.ready? do
           element = ::Element.id(self.id)
-          return element.show if element
+          return show_element if element
+          add_element
+          show_element
+        end
+      end
+
+      def add_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return if element
           element = ::Element.new
           element.id = self.id
           element.add_class('entity')
+          element.hide
           element.append_to_body
+          element
+        end
+      end
+
+      def show_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return if element.nil?
+          return if element.show?
+          element.effect(:fade_in, duration: 100)
         end
       end
 
