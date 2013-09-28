@@ -1,5 +1,8 @@
 module Lemonade
   module Story
+    # XXX: なぜか出る「uninitialized constant Object::Anima」エラー対策
+    Object::Anima = Entity::Anima
+
     def self.novel(*args, &story_block)
       @_subclass_count ||= 0
       @_subclass_count += 1

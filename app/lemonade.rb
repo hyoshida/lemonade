@@ -15,10 +15,6 @@ require 'lemonade/event'
 require 'lemonade/story'
 require 'lemonade/dsl'
 
-class Anima
-  include Lemonade::Entity
-end
-
 class Element
   def show?
     not hidden?
