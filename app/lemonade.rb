@@ -9,6 +9,7 @@ JavascriptImporter.new(%w{
   https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js
 }).exec
 
+require 'lemonade/element'
 require 'lemonade/entity'
 require 'lemonade/event'
 require 'lemonade/story'
@@ -29,13 +30,13 @@ class Element
 end
 
 Document.on(:click) do
-  paragraph = Element.id(Lemonade::Entity::ID_TAILK)
-  return Lemonade::Event.exec if paragraph.nil? || paragraph.show?
-  paragraph.toggle
+  message_box = Lemonade::MessageBox.find
+  return Lemonade::Event.exec if message_box.nil? || message_box.show?
+  message_box.toggle
 end
 
 Document.on(:contextmenu) do
-  paragraph = Element.id(Lemonade::Entity::ID_TAILK)
-  paragraph.toggle if paragraph
+  message_box = Lemonade::MessageBox.find
+  message_box.toggle if message_box
   return false
 end

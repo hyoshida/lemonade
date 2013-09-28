@@ -19,12 +19,23 @@ body {
   position: relative;
 }
 
-#talk {
+#messagebox {
+  color: #fff;
   padding: 30px;
   width: 640px - 60px;
-  height: 3em;
-  color: #fff;
+  height: 4em;
+  line-height: 150%;
   @include background-image(linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.75)));
   position: absolute;
   bottom: 0;
+}
+
+#name {
+  &:before {
+    content: '【';
+  }
+
+  &:after {
+    content: '】';
+  }
 }
