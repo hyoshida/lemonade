@@ -10,7 +10,20 @@ module Lemonade
         Event.new { add_talk text }.save
       end
 
+      def show
+        show_or_add_image_element
+      end
+
       private
+
+      def show_or_add_image_element
+        self.show_or_add_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return if element.nil?
+          element.css('background-image', "url('images/anima_#{self.id}.png')")
+        end
+      end
 
       def add_talk_element(text)
         Document.ready? do

@@ -28,6 +28,8 @@ module Lemonade
       define_singleton_method(name) do
         @assignments ||= {}
         @assignments[name] ||= instance_eval(&block)
+        @assignments[name].id = name
+        @assignments[name]
       end
     end
 
