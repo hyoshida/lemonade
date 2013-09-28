@@ -1,17 +1,21 @@
 module Lemonade
   module Entity
     class Anima < Base
-      def add_talk(text)
+      def talk!(text)
         add_name_element
         add_talk_element(text)
       end
 
       def talk(text)
-        Event.new { add_talk text }.save
+        Event.new { talk!(text) }.save
+      end
+
+      def show!
+        show_or_add_image_element
       end
 
       def show
-        show_or_add_image_element
+        Event.new { show! }.save
       end
 
       private

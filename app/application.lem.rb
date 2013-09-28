@@ -21,19 +21,19 @@ novel 'Lemonade' do
 
     event do
       lemon.name = '？？？'
-      lemon.add_talk('名前を変えるのだって簡単！')
+      lemon.talk!('名前を変えるのだって簡単！')
     end
 
     event do
       lemon.name = original_name
-      lemon.add_talk('もとに戻すときはこうするよ！')
+      lemon.talk!('もとに戻すときはこうするよ！')
     end
   end
 
   scene :four do
     event do
-      lemon.show
-      lemon.add_talk('キャラクターを表示することもできるよ')
+      lemon.show!
+      lemon.talk!('キャラクターを表示することもできるよ')
     end
   end
 
