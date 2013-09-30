@@ -102,7 +102,7 @@ module Lemonade
         entities.each_with_index do |entity,i|
           entity.css(left: "#{percentage * i}%")
         end
-        entities.animate(width: "#{percentage}%")
+        entities.transition(width: "#{percentage}%")
       end
 
       def animation_for(element, options = { randomOrder: false, time: 500, reset: true })

@@ -7,6 +7,7 @@ require 'javascript_importer'
 JavascriptImporter.new(%w{
   https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.js
   https://rawgithub.com/giuliandrimba/jquery-lettering-animate/master/example/js/jquery.lettering.animate.js
+  https://rawgithub.com/rstacruz/jquery.transit/master/jquery.transit.js
 }).exec
 
 require 'lemonade/element'
@@ -24,15 +25,24 @@ class Element
     self.css(:display) == 'none'
   end
 
+  def transition(params, &block)
+    speed = params.has_key?(:speed) ? params.delete(:speed) : 400
+    %x{
+      #{self}.transition(#{params.to_n}, #{speed}, function() {
+        #{block.call if block_given?}
+      })
+    }
+  end
+
   # XXX: effectに渡したブロックが正常に動作しないのでanimateを利用する
   def fade_in(options={}, &block)
     self.css(:opacity, 0)
     self.css(:display, 'block')
-    self.animate(options.merge(opacity: 1, speed: options[:duration]), &block)
+    self.transition(options.merge(opacity: 1, speed: options[:duration]), &block)
   end
 
   def fade_out(options={}, &block)
-    self.animate(options.merge(opacity: 0, speed: options[:duration])) do
+    self.transition(options.merge(opacity: 0, speed: options[:duration])) do
       self.css(:display, 'none')
       block.call if block_given?
     end
