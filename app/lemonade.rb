@@ -55,6 +55,11 @@ def on_wheel_click
   message_box.toggle if message_box
 end
 
+Document.on(:touchstart) do |event|
+  on_left_click
+  `#{event}.preventDefault();`
+end
+
 Document.on(:mousedown) do |event|
   case event.which
   when 1 then on_left_click
