@@ -35,6 +35,11 @@ novel 'Lemonade' do
       lemon.show!
       lemon.talk!('キャラクターを表示することもできるよ')
     end
+
+    event do
+      ade.show!
+      ade.talk!('複数のキャラクターを登場させることもできます')
+    end
   end
 
   chapter :first do

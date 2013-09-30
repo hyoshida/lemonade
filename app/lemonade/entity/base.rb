@@ -61,10 +61,20 @@ module Lemonade
           return if element.nil?
           return if element.show?
           element.effect(:fade_in, duration: 100)
+          replace_entities!
         end
       end
 
       private
+
+      def replace_entities!
+        entities = ::Element.find('.entity')
+        percentage = 100 / entities.length
+        entities.each_with_index do |entity,i|
+          entity.css(left: "#{percentage * i}%")
+        end
+        entities.animate(width: "#{percentage}%")
+      end
 
       def animation_for(element, options = { randomOrder: false, time: 500, reset: true })
         `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n});`
