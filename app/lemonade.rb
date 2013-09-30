@@ -23,6 +23,20 @@ class Element
   def hidden?
     self.css(:display) == 'none'
   end
+
+  # XXX: effectに渡したブロックが正常に動作しないのでanimateを利用する
+  def fade_in(options={}, &block)
+    self.css(:opacity, 0)
+    self.css(:display, 'block')
+    self.animate(options.merge(opacity: 1, speed: options[:duration]), &block)
+  end
+
+  def fade_out(options={}, &block)
+    self.animate(options.merge(opacity: 0, speed: options[:duration])) do
+      self.css(:display, 'none')
+      block.call if block_given?
+    end
+  end
 end
 
 def on_left_click

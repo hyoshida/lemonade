@@ -18,6 +18,14 @@ module Lemonade
         Event.new { show! }.save
       end
 
+      def hide!
+        hide_or_remove_element
+      end
+
+      def hide
+        Event.new { hide! }.save
+      end
+
       private
 
       def show_or_add_image_element

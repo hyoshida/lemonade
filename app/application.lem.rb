@@ -40,6 +40,9 @@ novel 'Lemonade' do
       ade.show!
       ade.talk!('複数のキャラクターを登場させることもできます')
     end
+
+    ade.talk('じゃあ僕はこの辺で失礼します')
+    ade.hide
   end
 
   chapter :first do

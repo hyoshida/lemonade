@@ -60,15 +60,44 @@ module Lemonade
           element = ::Element.id(self.id)
           return if element.nil?
           return if element.show?
-          element.effect(:fade_in, duration: 100)
+          element.css(:opacity, 0.0)
+          element.css(:display, 'block')
           replace_entities!
+          element.fade_in(duration: 400)
+        end
+      end
+
+      def hide_or_remove_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return remove_element unless element.visible?
+          hide_element
+        end
+      end
+
+      def remove_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return if element.nil?
+          element.remove
+        end
+      end
+
+      def hide_element
+        Document.ready? do
+          element = ::Element.id(self.id)
+          return if element.nil?
+          return if element.hidden?
+          element.fade_out(duration: 400) do
+            replace_entities!
+          end
         end
       end
 
       private
 
       def replace_entities!
-        entities = ::Element.find('.entity')
+        entities = ::Element.find('.entity:visible')
         percentage = 100 / entities.length
         entities.each_with_index do |entity,i|
           entity.css(left: "#{percentage * i}%")
