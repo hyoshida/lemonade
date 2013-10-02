@@ -74,7 +74,7 @@ module Lemonade
           answer.text = value
           answers.append(answer)
 
-          Document.on(:click, ".answer_#{key}") do |event|
+          Document.on('click touchstart', ".answer_#{key}") do |event|
             question.remove
             # 通常のイベント処理を有効化
             on_step_event
