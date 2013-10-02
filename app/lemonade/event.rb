@@ -19,6 +19,11 @@ module Lemonade
         @events.push(event)
       end
 
+      def unshift(event)
+        @events ||= []
+        @events.unshift(event)
+      end
+
       def exec
         event = @events.shift
         event.exec if event

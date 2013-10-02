@@ -22,6 +22,8 @@ body {
   background-size: contain;
   position: relative;
   z-index: 100;
+
+  display: table;
 }
 
 #messagebox {
@@ -64,4 +66,50 @@ body {
   @include filter-drop-shadow(0 0 5px rgba(0,0,0,.5));
   position: absolute;
   z-index: 110;
+}
+
+#question {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  position: relative;
+  z-index: 130;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.15);
+
+  // 垂直方向の中央寄せ
+  display: table-cell;
+  vertical-align: middle;
+  *zoom: 1; // for IE6-7
+  *display: inline; // for IE6-7
+
+  p {
+    margin: 1em auto;
+    padding: 1em 0;
+    width: 50%;
+    border: 1px solid #000;
+    @include background-image(linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)));
+    @include filter-drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+    @include border-radius(4px);
+  }
+}
+
+#answers {
+  margin: 0 auto;
+  width: 30%;
+
+  li {
+    width: 100%;
+    margin: 1em 0;
+    padding: 1em 0;
+    border: 1px solid #000;
+    @include background-image(linear-gradient(rgba(48, 48, 49, 0.75), rgba(16, 16, 16, 0.95)));
+    @include filter-drop-shadow(0 0 5px rgba(0, 0, 0, 0.75));
+    @include border-radius(4px);
+
+    &:hover {
+      @include background-image(linear-gradient(rgba(80, 80, 80, 0.75), rgba(32, 32, 32, 0.95)));
+      @include filter-drop-shadow(0 0 5px rgba(0, 0, 0, 0.95));
+    }
+  }
 }

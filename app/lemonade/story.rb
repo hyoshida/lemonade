@@ -53,6 +53,44 @@ module Lemonade
       Event.exec
     end
 
+    def self.question(*args, &block)
+      Event.new { question! *args, &block }.save
+    end
+
+    def self.question!(text, options, &block)
+      Document.ready? do
+        paragraph = ::Element.new('p')
+        paragraph.text = text
+
+        question = Question.find_or_initialize
+        question.html = paragraph
+
+        answers = Answers.find_or_initialize(parent: question, tag: 'ul')
+
+        options.each_pair do |key,value|
+          answer = ::Element.new('li')
+          answer.add_class('answer')
+          answer.add_class("answer_#{key}")
+          answer.text = value
+          answers.append(answer)
+
+          Document.on(:click, ".answer_#{key}") do |event|
+            question.remove
+            # イベントの割り込み挿入
+            Event.unshift(Event.new(key, &block))
+            # イベント実行
+            on_left_click
+            `#{event}.preventDefault();`
+          end
+        end
+
+        # 通常のイベント処理を無効化
+        Document.on(:mousedown, "##{question.id}") do |event|
+          `#{event}.stopPropgation();`
+        end
+      end
+    end
+
     private
 
     def self.scene_def(scene_name, block)

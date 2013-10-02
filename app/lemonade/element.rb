@@ -4,7 +4,7 @@ module Lemonade
       alias_method :original_new, :new
 
       def new(options={})
-        element = ::Element.new
+        element = ::Element.new(options[:tag] || 'div')
         element.id = options[:id] || self.default_id
         if options[:parent]
           options[:parent].append(element)
@@ -35,4 +35,6 @@ module Lemonade
   class MessageBox < Element; end
   class Talk < Element; end
   class Name < Element; end
+  class Question < Element; end
+  class Answers < Element; end
 end

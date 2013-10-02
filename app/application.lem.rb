@@ -41,8 +41,25 @@ novel 'Lemonade' do
       ade.talk!('複数のキャラクターを登場させることもできます')
     end
 
+    scene :five
+
     ade.talk('じゃあ僕はこの辺で失礼します')
     ade.hide
+  end
+
+  scene :five do
+    lemon.talk('選択肢を使った分岐処理もできちゃいます！')
+
+    question('あなたはどっち派？', lemon: 'レモン派', ade: 'エード派', other: 'よくわからない') do |answer|
+      case answer
+      when :lemon
+        lemon.talk!('ありがとう！')
+      when :ade
+        ade.talk!('ありがとうございます')
+      else
+        lemon.talk!('どっちでもないのね・・・')
+      end
+    end
   end
 
   chapter :first do
