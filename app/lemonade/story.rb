@@ -76,18 +76,18 @@ module Lemonade
 
           Document.on(:click, ".answer_#{key}") do |event|
             question.remove
+            # 通常のイベント処理を有効化
+            on_step_event
             # イベントの割り込み挿入
             Event.unshift(Event.new(key, &block))
             # イベント実行
-            on_left_click
-            `#{event}.preventDefault();`
+            Document.trigger(:step)
+            event.stop_propagation
           end
         end
 
         # 通常のイベント処理を無効化
-        Document.on(:mousedown, "##{question.id}") do |event|
-          `#{event}.stopPropgation();`
-        end
+        off_step_event
       end
     end
 

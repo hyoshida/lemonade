@@ -49,36 +49,43 @@ class Element
   end
 end
 
-def on_left_click
+def step
   message_box = Lemonade::MessageBox.find
   return Lemonade::Event.exec if message_box.nil? || message_box.show?
   message_box.toggle
 end
 
-def on_right_click
+def on_step_event
+  Document.on(:step) { step }
+end
+
+def off_step_event
+  Document.off(:step)
+end
+
+def toggle_mesage_box
   message_box = Lemonade::MessageBox.find
   message_box.toggle if message_box
 end
 
-def on_wheel_click
-  message_box = Lemonade::MessageBox.find
-  message_box.toggle if message_box
-end
+Document.ready? do
+  on_step_event
 
-Document.on(:touchstart) do |event|
-  on_left_click
-  `#{event}.preventDefault();`
-end
-
-Document.on(:mousedown) do |event|
-  case event.which
-  when 1 then on_left_click
-  when 3 then on_right_click
-  when 2 then on_wheel_click
+  Document.on(:touchstart) do |event|
+    Document.trigger(:step)
+    event.prevent_default
   end
-  `#{event}.preventDefault();`
-end
 
-Document.on(:contextmenu) do |event|
-  `#{event}.preventDefault();`
+  Document.on(:mousedown) do |event|
+    case event.which
+    when 1 then Document.trigger(:step)
+    when 3 then toggle_mesage_box
+    when 2 then toggle_mesage_box
+    end
+    event.prevent_default
+  end
+
+  Document.on(:contextmenu) do |event|
+    event.prevent_default
+  end
 end
