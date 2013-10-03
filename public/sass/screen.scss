@@ -39,6 +39,7 @@ body {
 }
 
 #name {
+  position: absolute;
   margin-top: 30px;
 
   &:before {
@@ -48,6 +49,12 @@ body {
   &:after {
     content: '】';
   }
+}
+
+#talk {
+  margin-top: 30px;
+  position: relative;
+  top: 1.6em;
 }
 
 @mixin filter-drop-shadow($args) {

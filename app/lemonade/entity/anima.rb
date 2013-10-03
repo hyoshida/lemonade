@@ -2,7 +2,11 @@ module Lemonade
   module Entity
     class Anima < Base
       def talk!(text)
-        add_name_element
+        if self.respond_to?(:name)
+          add_name_element
+        else
+          remove_name_element
+        end
         add_talk_element(text)
       end
 
@@ -51,6 +55,13 @@ module Lemonade
           message_box = MessageBox.find_or_initialize
           name = Name.find_or_initialize(parent: message_box)
           name.text = self.name
+        end
+      end
+
+      def remove_name_element
+        Document.ready? do
+          name = Name.find
+          name.remove if name
         end
       end
     end

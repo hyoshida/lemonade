@@ -4,7 +4,8 @@ module Lemonade
       attr_accessor :colmuns
       attr_accessor :id
 
-      def initialize(attributes)
+      def initialize(attributes=nil)
+        return if attributes.nil?
         colmuns = attributes.keys.map(&:to_sym)
         self.singleton_class.class_eval { attr_accessor *colmuns }
         self.colmuns = colmuns
