@@ -1,29 +1,22 @@
 module Lemonade
   module Entity
     class Base
+      attr_accessor :colmuns
+      attr_accessor :id
+
       def initialize(attributes)
+        colmuns = attributes.keys.map(&:to_sym)
+        self.singleton_class.class_eval { attr_accessor *colmuns }
+        self.colmuns = colmuns
         self.attributes = attributes
       end
 
-      def id
-        @id
-      end
-
-      def id=(id)
-        @id = id
-      end
-
-      # なぜかattr_accessorがうまく動作しないので独自に定義
-      def name
-        @name
-      end
-
-      def name=(name)
-        @name = name
-      end
-
       def attributes
-        { id: self.id, name: self.name }
+        default_attributes = { id: self.id }
+        self.colmuns.inject(default_attributes) do |result,colmun|
+          result[colmun] = self.send colmun
+          result
+        end
       end
 
       def attributes=(attributes)

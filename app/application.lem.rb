@@ -1,6 +1,6 @@
 novel 'Lemonade' do
-  entity(:lemon) { Anima.new(name: 'レモン') }
-  entity(:ade) { Anima.new(name: 'エード') }
+  entity(:lemon) { Anima.new(name: 'レモン', love: 0) }
+  entity(:ade) { Anima.new(name: 'エード', love: 0) }
 
   scene :one do
     lemon.talk('Hello world!')
@@ -54,6 +54,7 @@ novel 'Lemonade' do
       case answer
       when :lemon
         lemon.talk!('ありがとう！')
+        lemon.love += 10
       when :ade
         ade.talk!('ありがとうございます')
       else
@@ -62,10 +63,17 @@ novel 'Lemonade' do
     end
   end
 
+  scene :six do
+    event do
+      lemon.talk!('えへへ') if lemon.love >= 5
+    end
+  end
+
   chapter :first do
     scene :one
     scene :two
     scene :three
     scene :four
+    scene :six
   end
 end
