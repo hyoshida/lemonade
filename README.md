@@ -3,6 +3,8 @@ Lemonade
 
 Lemonade is a simple script languege for novel games on browser.
 
+[Check out a demo](http://hyoshida.github.io/lemonade/).
+
 
 Usage
 -----
