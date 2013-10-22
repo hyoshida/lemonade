@@ -34,18 +34,15 @@ class Element
     }
   end
 
-  # XXX: effectに渡したブロックが正常に動作しないのでanimateを利用する
+  # XXX: CSS3のアニメーション機構を利用することでスマートフォンでの動作を軽快にする
   def fade_in(options={}, &block)
-    self.css(:opacity, 0)
-    self.css(:display, 'block')
-    self.transition(options.merge(opacity: 1, speed: options[:duration]), &block)
+    self.remove_class(:fadeIn)
+    self.add_class(:fadeIn)
   end
 
   def fade_out(options={}, &block)
-    self.transition(options.merge(opacity: 0, speed: options[:duration])) do
-      self.css(:display, 'none')
-      block.call if block_given?
-    end
+    self.remove_class(:fadeOut)
+    self.add_class(:fadeOut)
   end
 end
 

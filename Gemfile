@@ -10,3 +10,4 @@ gem 'json'
 
 gem 'sass'
 gem 'compass'
+gem 'animation'

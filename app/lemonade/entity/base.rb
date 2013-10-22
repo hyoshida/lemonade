@@ -54,7 +54,6 @@ module Lemonade
           element = ::Element.id(self.id)
           return if element.nil?
           return if element.show?
-          element.css(:opacity, 0.0)
           element.css(:display, 'block')
           replace_entities!
           element.fade_in(duration: 400)
