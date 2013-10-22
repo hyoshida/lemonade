@@ -72,10 +72,10 @@ novel 'Lemonade' do
   scene :six do
     event do
       lemon.talk!('えへへ') if lemon.love >= 5
-
-      narrator.talk("こんな感じで簡単なノベルゲームを作っていくことができます")
-      narrator.talk("しかも言語はRubyベースなので、とても読みやすいスクリプトを書けるのが特徴です")
     end
+
+    narrator.talk("こんな感じで簡単なノベルゲームを作っていくことができます")
+    narrator.talk("しかも言語はRubyベースなので、とても読みやすいスクリプトを書けるのが特徴です")
   end
 
   chapter :first do
