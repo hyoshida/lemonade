@@ -44,6 +44,11 @@ novel 'Lemonade' do
 
     scene :five
 
+    event do
+      ade.talk('ぐぬぬ・・・') if lemon.love >= 5
+      step
+    end
+
     ade.talk('じゃあ僕はこの辺で失礼します')
     ade.hide
   end

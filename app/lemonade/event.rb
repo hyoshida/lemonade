@@ -26,7 +26,11 @@ module Lemonade
 
       def exec
         event = @events.shift
-        event.exec if event
+        return unless event
+        nested_events = @events
+        @events = []
+        event.exec
+        @events.concat(nested_events).compact!
       end
     end
   end
