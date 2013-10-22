@@ -1,0 +1,26 @@
+language: ruby
+rvm: 2.0.0
+notifications:
+  email: false
+env:
+  global:
+    - GIT_COMMITTER_NAME=YOSHIDA Hiroki
+    - GIT_COMMITTER_EMAIL=hyoshida@appirits.com
+    - GIT_AUTHOR_NAME=YOSHIDA Hiroki
+    - GIT_AUTHOR_EMAIL=hyoshida@appirits.com
+    - secure: "dpy26pXb/cM24E+vxT1UdQDz/csQ1Fjk4k6k+heK1elmcqlzAd3U/5wLSdnzuplTlUVAo7fTNL1f0liLW54pZJ2wiOozanR5++VY2kdd3cGcnw7Mq2clH/bqxrwr2rP9JDm372de3beiVOQjB70IFgLqcRuzXg0eUku5uq6LQ60="
+before_script:
+    - REV=`git rev-parse HEAD`
+    - mv public public_org
+    - git clone --quiet https://github.com/hyoshida/lemonade.git public
+    - pushd public
+    - git checkout gh-pages
+    - popd
+    - cp -a public_org/* public
+script:
+    - bundle exec rake build
+after_success:
+    - cd public
+    - git add -A
+    - git commit -m "Update \"$REV\""
+    - '[ "$TRAVIS_BRANCH" == "master" ] && [ $GH_TOKEN ] && git push --quiet https://$GH_TOKEN@github.com/hyoshida/lemonade.git gh-pages'
