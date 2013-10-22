@@ -32,8 +32,23 @@ module Lemonade
     end
   end
 
+  class Talk < Element
+    def self.reset_lettering
+      element = self.find
+      return false unless element
+
+      letters = element.find('span')
+      return false if letters.length.zero?
+
+      text = letters.map(&:text).join
+      `element.empty()`
+      element.text = text
+
+      true
+    end
+  end
+
   class MessageBox < Element; end
-  class Talk < Element; end
   class Name < Element; end
   class Question < Element; end
   class Answers < Element; end

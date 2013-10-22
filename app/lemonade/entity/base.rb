@@ -99,7 +99,7 @@ module Lemonade
       end
 
       def animation_for(element, options = { time: 400 })
-        `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n});`
+        `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n}, function() { #{Talk.reset_lettering} });`
       end
     end
   end

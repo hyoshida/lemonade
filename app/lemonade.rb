@@ -56,7 +56,7 @@ def step
 end
 
 def on_step_event
-  Document.on(:step) { step }
+  Document.on(:step) { step unless Lemonade::Talk.reset_lettering }
 end
 
 def off_step_event
