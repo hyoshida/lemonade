@@ -94,9 +94,8 @@ module Lemonade
         entities = ::Element.find('.entity:visible')
         percentage = 100 / entities.length
         entities.each_with_index do |entity,i|
-          entity.css(left: "#{percentage * i}%")
+          entity.transition(left: "#{percentage * i}%", width: "#{percentage}%")
         end
-        entities.transition(width: "#{percentage}%")
       end
 
       def animation_for(element, options = { time: 400 })
