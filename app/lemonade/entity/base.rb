@@ -99,7 +99,7 @@ module Lemonade
         entities.transition(width: "#{percentage}%")
       end
 
-      def animation_for(element, options = { randomOrder: false, time: 500, reset: true })
+      def animation_for(element, options = { time: 400 })
         `element.lettering().animateLetters({ opacity: 0 }, { opacity: 1 }, #{options.to_n});`
       end
     end
